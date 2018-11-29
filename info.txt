@@ -1,0 +1,9 @@
+Za WebcamFun primer potrebno je da :
+    1. Skinete i instalirate Node program : https://nodejs.org/en/
+    2. Otvorite terminal (u vsCode oditoru idete na view->terminal ) zatim izvrsite komandu 'cd browserAPI/WebcamFun/' da promenite direktorijuma a potom komandu  'npm i'
+    3. izvrsite komandu 'npm run startServer', to ce pokrenuti server na adresi localhost:3000
+
+PS: Probajte ipak prvo bez servera, direktno otvorite fajl u nekim browserima ce mozda raditi :).
+
+Primere za speech detection ,speech synthesis i mnoge druge zanimljive Browser funkcionalsnoti mozete naci na ovom kursu https://javascript30.com/. 
+Primeri  WebcamFun i CustomVideo su takodje tu, samo su ovde kod mene malo izmenjeni.

@@ -14,18 +14,66 @@
        <div class="progress">
           <div class="progress__filled"></div>
        </div>
-       <button class="player__button toggle"> <img class='toggleIcon' src='play.png'> </button>
-       <input type="range" id="volume" class="player__slider">
-       <input type="range" id="speed"  class="player__slider">
+       <button id="toggleVideo" class="player__button toggle"> <img class='toggleIcon' src='play.png'> </button>
+       <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" class="player__slider">
+       <input type="range" id="speed"  min="0.5" max="3" step="0.5" value="1" class="player__slider">
        <button class="player__button">«10s</button>
        <button class="player__button">25s »</button>
      </div>
    </div>
   <script>
     /** API
-      * volume,PlaybackRate,currentTime,duration,paused
+      * volume,playbackRate,currentTime,duration,paused
       * events: timeupdate
     */
+  const toogleButton = document.getElementById('toggleVideo');
+  const video = document.getElementById('video');
+  const icon = document.querySelector('.toggleIcon');
+  const volumeInput = document.getElementById('volume');
+  const speedInput = document.getElementById('speed');
+  const progressFilled = document.querySelector('.progress__filled');
+  const progress = document.querySelector('.progress');
+
+//1. Nacin
+  // toogleButton.onclick = function(){
+  //   if(video.paused){
+  //     icon.src = 'pause.png';
+  //     video.play();
+  //   }else{
+  //     video.pause();
+  //     icon.src = 'play.png';
+  //   }
+  // }
+
+  progress.onclick = function(e){
+    console.log(e);
+  };
+  
+  toogleButton.addEventListener('click',function(){
+    if(video.paused){
+      icon.src = 'pause.png';
+      video.play();
+    }else{
+      video.pause();
+      icon.src = 'play.png';
+    }
+  });
+
+  volumeInput.addEventListener('change',function(){
+    video.volume = volumeInput.value;
+  });
+
+  speedInput.addEventListener('change',function(){
+    video.playbackRate = speedInput.value;
+  });
+  video.addEventListener('timeupdate',function(){
+    const procenat = (video.currentTime / video.duration)*100;
+    console.log(procenat);
+    progressFilled.style.flexBasis = procenat + '%';
+  });
+
+
+
   </script>
 </body>
 </html>

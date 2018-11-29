@@ -27,8 +27,40 @@
        * canvas.getContext,drawImage, toDataUrl, setAttribute,
        * insertBefore
     */
-   
-  </script>
+   const video = document.getElementById('stream');
+   const pictureContainer = document.querySelector('.pictureContainer');
+   const snapButton = document.querySelector('.cameraIcon');
+   const sound = document.querySelector('.snap'); 
 
+   // Trazimo pristup kameri
+   navigator.mediaDevices.getUserMedia({video:true,audio:false})
+   .then(function(stream){
+     // ukoliko korisnik dozvoli pristup browseru, strumijemo podatke iz kamere u nas video element 
+     video.srcObject = stream;
+     video.play();
+   }).catch(function(err){
+    console.log(err);
+   });
+
+   function takePhoto() {
+      sound.currentTime = 0;
+      sound.play();
+      // kreiramo canvas element koji ce nam sluziti da "napravimo" sliku
+      const canvas = document.createElement('canvas'); 
+      const ctx = canvas.getContext('2d'); // uzimamo kontext za 2d grafiku
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      ctx.drawImage(video,0,0,canvas.width,canvas.height); //koristimo trenutni frame videa kao izvor
+      const data = canvas.toDataURL('image/jpeg'); // ovo je nacin da predstavimo sliku kao string ASCI karaktera, i to mozemo koristiti kao src slike.
+      console.log(data); //dakle, data je string koji sadrzi sve informacije o slici (sve piksele,koji je format, koja rezolucija, dimenzije)
+      const link = document.createElement('a');
+      link.setAttribute('href', data);
+      link.setAttribute('download', 'whatever'); // atribut koji omogucuje skidanje slike 
+      link.innerHTML = `<img src="${data}" alt="Handsome Man" />`; // `` je template string, postoji od 6-te verzije js-a (ES6)
+      pictureContainer.insertBefore(link, pictureContainer.firsChild); // pogledajte kako radi insertBefore :https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+  }
+  snapButton.onclick = takePhoto;
+  </script>
 </body>
 </html>
