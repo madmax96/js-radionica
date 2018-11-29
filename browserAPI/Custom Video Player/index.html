@@ -35,19 +35,7 @@
   const progress = document.querySelector('.progress');
 
 //1. Nacin
-  // toogleButton.onclick = function(){
-  //   if(video.paused){
-  //     icon.src = 'pause.png';
-  //     video.play();
-  //   }else{
-  //     video.pause();
-  //     icon.src = 'play.png';
-  //   }
-  // }
-
-  progress.onclick = function(e){
-    console.log(e);
-  };
+  // toogleButton.onclick = function(){...}
   
   toogleButton.addEventListener('click',function(){
     if(video.paused){
@@ -72,7 +60,9 @@
     progressFilled.style.flexBasis = procenat + '%';
   });
 
-
+ progress.onclick = function(e){
+    console.log(e);
+  };
 
   </script>
 </body>
